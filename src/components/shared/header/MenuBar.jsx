@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { Phone } from "lucide-react";
-import Container from "../ui/Container";
-import NavLink from "../ui/buttons/NavLink";
+import Container from "../../ui/Container";
+import NavLink from "../../ui/buttons/NavLink";
 
 const ICON_SIZE = 20;
 

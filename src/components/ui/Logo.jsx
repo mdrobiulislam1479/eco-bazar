@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <div>
       <Link
-        className="inline-flex items-center gap-2 text-3xl font-medium text-[#1a1a1a] hover:opacity-80 transition-opacity shrink-0"
+        className="inline-flex items-center gap-2 text-3xl font-medium hover:opacity-80 transition-opacity shrink-0"
         href="/"
         aria-label="Ecobazar home"
       >

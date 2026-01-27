@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { Leaf, Search, Heart, ShoppingCart, Menu, X } from "lucide-react";
-import Container from "../ui/Container";
-import IconButton from "../ui/IconButton";
-import Logo from "../ui/Logo";
+import Container from "../../ui/Container";
+import IconButton from "../../ui/IconButton";
+import Logo from "../../ui/Logo";
 
 const ICON_SIZE = 20;
 

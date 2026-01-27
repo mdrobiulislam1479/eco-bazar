@@ -1,7 +1,7 @@
 "use client";
 
 import { MapPin } from "lucide-react";
-import Container from "../ui/Container";
+import Container from "../../ui/Container";
 
 export default function TopBar() {
   return (
