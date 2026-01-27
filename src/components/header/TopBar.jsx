@@ -7,7 +7,7 @@ const ICON_SIZE = 20;
 
 export default function TopBar() {
   return (
-    <div className="bg-[#2a2a2a] text-[#f5f5f5] text-sm">
+    <div className="bg-[#1A1A1A] text-[#f5f5f5] text-sm">
       <Container className="flex flex-wrap items-center gap-4 py-2.5 lg:gap-6 lg:justify-between">
         {/* Location */}
         <div className="flex flex-1 items-center justify-center lg:justify-start gap-2 min-w-55">

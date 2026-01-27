@@ -12,7 +12,7 @@ export default function Header() {
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="bg-white text-[#1a1a1a] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
+    <header className="bg-[#1A1A1A] text-[#1a1a1a]">
       <TopBar />
       <MainBar isMenuOpen={isMenuOpen} onToggleMenu={toggleMenu} />
       <MenuBar isMenuOpen={isMenuOpen} onNavigate={closeMenu} />

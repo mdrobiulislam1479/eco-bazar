@@ -19,7 +19,7 @@ export default function MenuBar({ isMenuOpen = false, onNavigate }) {
   return (
     <>
       {/* Desktop */}
-      <div className="hidden lg:block border-t border-[#e6e6e6] bg-white">
+      <div className="hidden lg:block border-y border-[#e6e6e6] bg-white">
         <Container className="flex flex-wrap items-center justify-between gap-6 py-3">
           <nav
             className="flex flex-wrap items-center justify-center gap-5"
