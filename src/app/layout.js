@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/shared/header/Header";
 import Footer from "@/components/shared/Footer";
 import Newsletter from "@/components/shared/Newsletter";
+import Breadcrumb from "@/components/shared/Breadcrumb";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,6 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={poppins.className}>
       <body className="flex flex-col min-h-screen">
         <Header />
+        <Breadcrumb />
         <section className="flex-1">{children}</section>
         <Newsletter />
         <Footer />
