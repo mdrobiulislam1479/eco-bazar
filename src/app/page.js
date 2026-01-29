@@ -1,3 +1,4 @@
+import Deals from "@/components/home/Deals";
 import FeatureBar from "@/components/home/FeatureBar";
 import Hero from "@/components/home/Hero";
 import InstagramFollow from "@/components/home/InstagramFollow";
@@ -8,6 +9,7 @@ const Home = () => {
     <div>
       <Hero />
       <FeatureBar />
+      <Deals />
       <Partner />
       <InstagramFollow />
     </div>
