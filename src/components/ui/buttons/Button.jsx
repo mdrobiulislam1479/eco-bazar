@@ -3,12 +3,9 @@
 import Link from "next/link";
 import React from "react";
 
-const Button = ({ href = "", children }) => {
+const Button = ({ href = "", children, className = "" }) => {
   return (
-    <Link
-      href={href}
-      className="rounded-full bg-[#00b207] px-6 py-3 text-sm text-center font-semibold text-white transition hover:bg-[#009a06]"
-    >
+    <Link href={href} className={className}>
       {children}
     </Link>
   );

@@ -9,7 +9,12 @@ const NotFound = () => {
       <p className="text-[#808080] text-center">
         Looks like this page doesn’t exist. Let’s get you back home.
       </p>
-      <Button href="/">Back to Home</Button>
+      <Button
+        href="/"
+        className="rounded-full bg-[#00b207] px-6 py-3 text-sm text-center font-semibold text-white transition hover:bg-[#009a06]"
+      >
+        Back to Home
+      </Button>
     </div>
   );
 };
