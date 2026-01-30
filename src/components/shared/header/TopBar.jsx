@@ -18,7 +18,7 @@ export default function TopBar() {
         {/* Auth */}
         <div className="hidden lg:flex items-center gap-4">
           <a
-            href="/auth"
+            href="/auth/login"
             className="text-sm px-2 py-1 rounded hover:text-[#00b207] hover:bg-[#1a1a1a] transition-colors whitespace-nowrap"
           >
             Sign In / Sign Up
