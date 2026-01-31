@@ -51,7 +51,7 @@ export default function MenuBar({ isMenuOpen = false, onNavigate }) {
 
               <Link
                 className="text-sm font-semibold px-2 py-2 rounded hover:text-[#00b207] hover:bg-[#1a1a1a] transition-colors"
-                href="/auth"
+                href="/auth/login"
                 onClick={onNavigate}
               >
                 Sign In / Sign Up
