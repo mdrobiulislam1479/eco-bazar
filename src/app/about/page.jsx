@@ -9,6 +9,7 @@ const About = () => {
       <TrustedOrganicTop />
       <TrustedOrganicFeatures />
       <DeliveryPromo />
+      <TeamSection />
     </div>
   );
 };
