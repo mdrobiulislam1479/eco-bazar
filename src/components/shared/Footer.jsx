@@ -20,7 +20,7 @@ const footerCols = [
     title: "Helps",
     links: [
       { label: "Contact", href: "#" },
-      { label: "Faqs", href: "#" },
+      { label: "Faqs", href: "/faqs" },
       { label: "Terms & Condition", href: "#" },
       { label: "Privacy Policy", href: "#" },
     ],

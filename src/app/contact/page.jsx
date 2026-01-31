@@ -68,7 +68,7 @@ export default function ContactSection() {
                 />
 
                 <textarea
-                  className="min-h-[120px] w-full rounded-lg border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-emerald-500"
+                  className="min-h-30 w-full rounded-lg border border-zinc-200 px-4 py-3 text-sm outline-none focus:border-emerald-500"
                   placeholder="Subjects"
                 />
 
