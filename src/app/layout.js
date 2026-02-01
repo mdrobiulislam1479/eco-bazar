@@ -19,16 +19,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={poppins.className}>
-      <body className="flex flex-col min-h-screen">
-        <Header />
-        <Breadcrumb />
-        <section className="flex-1">
-          <Providers>{children}</Providers>
-        </section>
-        <Newsletter />
-        <Footer />
-      </body>
-    </html>
+    <Providers>
+      <html lang="en" className={poppins.className}>
+        <body className="flex flex-col min-h-screen">
+          <Header />
+          <Breadcrumb />
+          <section className="flex-1">{children}</section>
+          <Newsletter />
+          <Footer />
+        </body>
+      </html>
+    </Providers>
   );
 }
