@@ -7,7 +7,7 @@ export const postUser = async (payload) => {
   const { name, email, password } = payload;
 
   //check payload
-  if (!email && !password) return null;
+  if (!email || !password) return null;
 
   //check user
   const isExist = await dbConnect("users").findOne({ email });
@@ -30,4 +30,25 @@ export const postUser = async (payload) => {
       insertedId: result.insertedId.toString(),
     };
   }
+};
+
+export const loginUser = async (payload) => {
+  const { email, password } = payload;
+
+  //check payload
+  if (!email || !password) return null;
+
+  //check user
+  const user = await dbConnect("users").findOne({ email });
+  if (!user) return null;
+
+  //check password
+  const isMatched = await bcrypt.compare(password, user.password);
+  if (!isMatched) return null;
+
+  return {
+    id: user._id.toString(),
+    name: user.name || "",
+    email: user.email,
+  };
 };
