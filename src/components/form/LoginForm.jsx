@@ -34,7 +34,7 @@ const LoginForm = () => {
     });
 
     if (res?.error) {
-      Swal.fire("Failed", "Login Failed!", "error");
+      Swal.fire("Error", "Login Failed!", "error");
     } else {
       Swal.fire("Success", "Login Successful!", "success");
       router.push("/");

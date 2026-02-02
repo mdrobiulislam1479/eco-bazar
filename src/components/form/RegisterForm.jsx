@@ -40,7 +40,7 @@ const RegisterForm = () => {
       router.push("/");
       Swal.fire("Success", "Registration Successful!", "success");
     }
-    Swal.fire("Failed", "Registration Failed!", "error");
+    Swal.fire("Error", "Registration Failed!", "error");
   };
 
   return (
