@@ -3,8 +3,12 @@ import Link from "next/link";
 import GoogleButton from "../ui/buttons/GoogleButton";
 import { useState } from "react";
 import { postUser } from "@/actions/server/auth";
+import { signIn } from "next-auth/react";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,6 +30,17 @@ const RegisterForm = () => {
     e.preventDefault();
 
     const result = await postUser(formData);
+
+    if (result.acknowledged) {
+      await signIn("credentials", {
+        email: formData.email,
+        password: formData.password,
+        redirect: false,
+      });
+      router.push("/");
+      Swal.fire("Success", "Registration Successful!", "success");
+    }
+    Swal.fire("Failed", "Registration Failed!", "error");
   };
 
   return (
@@ -41,6 +56,7 @@ const RegisterForm = () => {
             value={formData.name}
             onChange={handleChange}
             className="border border-[#E5E5E5] p-4 rounded-md"
+            required
           />
 
           <input
@@ -50,6 +66,7 @@ const RegisterForm = () => {
             value={formData.email}
             onChange={handleChange}
             className="border border-[#E5E5E5] p-4 rounded-md"
+            required
           />
 
           <input
@@ -59,6 +76,7 @@ const RegisterForm = () => {
             value={formData.password}
             onChange={handleChange}
             className="border border-[#E5E5E5] p-4 rounded-md"
+            required
           />
 
           <button

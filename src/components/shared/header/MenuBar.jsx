@@ -1,20 +1,30 @@
 "use client";
 
-import Link from "next/link";
 import { Phone } from "lucide-react";
 import Container from "../../ui/Container";
 import NavLink from "../../ui/buttons/NavLink";
+import AuthButton from "@/components/ui/buttons/AuthButton";
 
 const ICON_SIZE = 20;
 
-const NAV_LINKS = () => {
+const NAV_LINKS = ({ onNavigate }) => {
   return (
     <>
-      <NavLink href={"/"}>Home</NavLink>
-      <NavLink href={"/shop"}>Shop</NavLink>
-      <NavLink href={"/blog"}>Blog</NavLink>
-      <NavLink href={"/about"}>About Us</NavLink>
-      <NavLink href={"/contact"}>Contact Us</NavLink>
+      <NavLink href="/" onNavigate={onNavigate}>
+        Home
+      </NavLink>
+      <NavLink href="/shop" onNavigate={onNavigate}>
+        Shop
+      </NavLink>
+      <NavLink href="/blog" onNavigate={onNavigate}>
+        Blog
+      </NavLink>
+      <NavLink href="/about" onNavigate={onNavigate}>
+        About Us
+      </NavLink>
+      <NavLink href="/contact" onNavigate={onNavigate}>
+        Contact Us
+      </NavLink>
     </>
   );
 };
@@ -47,15 +57,12 @@ export default function MenuBar({ isMenuOpen = false, onNavigate }) {
               className="flex flex-col gap-2 mb-4"
               aria-label="Mobile navigation"
             >
-              <NAV_LINKS />
+              <NAV_LINKS onNavigate={onNavigate} />
 
-              <Link
-                className="text-sm font-semibold px-2 py-2 rounded hover:text-[#00b207] hover:bg-[#1a1a1a] transition-colors"
-                href="/auth/login"
-                onClick={onNavigate}
-              >
-                Sign In / Sign Up
-              </Link>
+              <AuthButton
+                onNavigate={onNavigate}
+                className="flex items-center"
+              />
             </nav>
 
             <div className="flex items-center gap-2 font-semibold text-[#1a1a1a] border-t border-[#e6e6e6] pt-4">

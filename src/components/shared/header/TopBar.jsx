@@ -3,6 +3,7 @@
 import { MapPin } from "lucide-react";
 import Container from "../../ui/Container";
 import Link from "next/link";
+import AuthButton from "@/components/ui/buttons/AuthButton";
 
 export default function TopBar() {
   return (
@@ -17,14 +18,7 @@ export default function TopBar() {
         </div>
 
         {/* Auth */}
-        <div className="hidden lg:flex items-center gap-4">
-          <Link
-            href="/auth/login"
-            className="text-sm px-2 py-1 rounded hover:text-[#00b207] hover:bg-[#1a1a1a] transition-colors whitespace-nowrap"
-          >
-            Sign In / Sign Up
-          </Link>
-        </div>
+        <AuthButton className="hidden lg:flex items-center gap-4" />
       </Container>
     </div>
   );

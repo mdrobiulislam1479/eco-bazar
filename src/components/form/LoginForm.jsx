@@ -3,8 +3,11 @@ import Link from "next/link";
 import GoogleButton from "../ui/buttons/GoogleButton";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -31,9 +34,10 @@ const LoginForm = () => {
     });
 
     if (res?.error) {
-      console.log("Login failed:", res.error);
+      Swal.fire("Failed", "Login Failed!", "error");
     } else {
-      console.log("Login success");
+      Swal.fire("Success", "Login Successful!", "success");
+      router.push("/");
     }
   };
 
@@ -49,6 +53,7 @@ const LoginForm = () => {
             value={formData.email}
             onChange={handleChange}
             className="border border-[#E5E5E5] p-4 rounded-md"
+            required
           />
 
           <input
@@ -58,6 +63,7 @@ const LoginForm = () => {
             value={formData.password}
             onChange={handleChange}
             className="border border-[#E5E5E5] p-4 rounded-md"
+            required
           />
 
           <button className="bg-[#00B207] hover:bg-green-600 p-4 text-white rounded-full cursor-pointer">
