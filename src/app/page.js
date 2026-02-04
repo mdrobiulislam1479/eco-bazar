@@ -1,5 +1,6 @@
 import Deals from "@/components/home/Deals";
 import FeatureBar from "@/components/home/FeatureBar";
+import FeaturedProducts from "@/components/home/FeaturedProducts";
 import Hero from "@/components/home/Hero";
 import InstagramFollow from "@/components/home/InstagramFollow";
 import Partner from "@/components/home/Partner";
@@ -11,9 +12,10 @@ const Home = () => {
     <div>
       <Hero />
       <FeatureBar />
-      <PopularProducts/>
+      <PopularProducts />
       <Deals />
       <SummerSaleBanner />
+      <FeaturedProducts />
       <Partner />
       <InstagramFollow />
     </div>
