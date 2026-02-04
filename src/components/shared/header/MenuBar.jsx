@@ -16,9 +16,6 @@ const NAV_LINKS = ({ onNavigate }) => {
       <NavLink href="/shop" onNavigate={onNavigate}>
         Shop
       </NavLink>
-      <NavLink href="/blog" onNavigate={onNavigate}>
-        Blog
-      </NavLink>
       <NavLink href="/about" onNavigate={onNavigate}>
         About Us
       </NavLink>

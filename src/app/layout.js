@@ -5,7 +5,6 @@ import Footer from "@/components/shared/Footer";
 import Newsletter from "@/components/shared/Newsletter";
 import Breadcrumb from "@/components/shared/Breadcrumb";
 import Providers from "@/providers/Providers";
-import ReduxProvider from "@/redux/provider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,18 +19,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ReduxProvider>
-      <Providers>
-        <html lang="en" className={poppins.className}>
-          <body className="flex flex-col min-h-screen">
-            <Header />
-            <Breadcrumb />
-            <section className="flex-1">{children}</section>
-            <Newsletter />
-            <Footer />
-          </body>
-        </html>
-      </Providers>
-    </ReduxProvider>
+    <Providers>
+      <html lang="en" className={poppins.className}>
+        <body className="flex flex-col min-h-screen">
+          <Header />
+          <Breadcrumb />
+          <section className="flex-1">{children}</section>
+          <Newsletter />
+          <Footer />
+        </body>
+      </html>
+    </Providers>
   );
 }

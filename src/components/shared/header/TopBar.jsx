@@ -2,7 +2,6 @@
 
 import { MapPin } from "lucide-react";
 import Container from "../../ui/Container";
-import Link from "next/link";
 import AuthButton from "@/components/ui/buttons/AuthButton";
 
 export default function TopBar() {
