@@ -17,7 +17,17 @@ export const wishlistApi = createApi({
         body: { productId },
       }),
     }),
+    removeWishlist: builder.mutation({
+      query: (productId) => ({
+        url: `/wishlist?productId=${productId}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useAddWishlistMutation, useGetWishlistQuery } = wishlistApi;
+export const {
+  useAddWishlistMutation,
+  useGetWishlistQuery,
+  useRemoveWishlistMutation,
+} = wishlistApi;

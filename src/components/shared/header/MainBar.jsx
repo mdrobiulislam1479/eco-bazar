@@ -22,7 +22,7 @@ export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
 
         {/* Actions */}
         <div className="order-2 flex items-center gap-4 lg:order-0 lg:gap-5">
-          <Link href="/wishlist">
+          <Link href="/wishlist" className="hover:text-[#00b207]">
             <Heart size={ICON_SIZE} />
           </Link>
 

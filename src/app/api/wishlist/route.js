@@ -44,3 +44,24 @@ export async function POST(req) {
 
   return Response.json({ ok: true });
 }
+
+export async function DELETE(req) {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.email;
+  if (!userId)
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+
+  const { searchParams } = new URL(req.url);
+  const productId = Number(searchParams.get("productId"));
+
+  if (!Number.isFinite(productId)) {
+    return Response.json(
+      { message: "productId must be a number" },
+      { status: 400 },
+    );
+  }
+
+  await dbConnect("wishlist").deleteOne({ userId, productId });
+
+  return Response.json({ ok: true });
+}

@@ -1,14 +1,22 @@
 "use client";
 
 import { useGetGroceriesQuery } from "@/redux/api/productsApi";
-import { useGetWishlistQuery } from "@/redux/api/wishlistApi";
+import {
+  useGetWishlistQuery,
+  useRemoveWishlistMutation,
+} from "@/redux/api/wishlistApi";
 import Image from "next/image";
 import Container from "../ui/Container";
 
 export default function WishlistClient() {
-  const { data: wishData, isLoading: wishLoading } = useGetWishlistQuery();
+  const {
+    data: wishData,
+    isLoading: wishLoading,
+    refetch,
+  } = useGetWishlistQuery();
   const { data: groceryData, isLoading: productLoading } =
     useGetGroceriesQuery();
+  const [remove] = useRemoveWishlistMutation();
 
   if (wishLoading || productLoading)
     return <p className="py-10 text-center">Loading...</p>;
@@ -20,6 +28,11 @@ export default function WishlistClient() {
   const rows = wishItems
     .map((w) => productMap.get(w.productId))
     .filter(Boolean);
+
+  const handleRemove = async (id) => {
+    await remove(id);
+    refetch();
+  };
 
   return (
     <section className="py-10">
@@ -90,6 +103,7 @@ export default function WishlistClient() {
                   </button>
 
                   <button
+                    onClick={() => handleRemove(p.id)}
                     className="h-8 w-8 rounded-full border border-gray-200 flex items-center justify-center hover:bg-gray-50 text-[#666666] cursor-pointer"
                     aria-label="Remove"
                   >
