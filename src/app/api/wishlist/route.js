@@ -2,6 +2,20 @@ import { getServerSession } from "next-auth";
 import { dbConnect } from "@/lib/dbConnect";
 import { authOptions } from "../auth/[...nextauth]/route";
 
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.email;
+  if (!userId)
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+
+  const items = await dbConnect("wishlist")
+    .find({ userId })
+    .sort({ createdAt: -1 })
+    .toArray();
+
+  return Response.json({ items });
+}
+
 export async function POST(req) {
   const session = await getServerSession(authOptions);
   const userId = session?.user?.email;

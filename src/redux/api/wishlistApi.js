@@ -7,6 +7,9 @@ export const wishlistApi = createApi({
     credentials: "include",
   }),
   endpoints: (builder) => ({
+    getWishlist: builder.query({
+      query: () => "/wishlist",
+    }),
     addWishlist: builder.mutation({
       query: (productId) => ({
         url: "/wishlist",
@@ -17,4 +20,4 @@ export const wishlistApi = createApi({
   }),
 });
 
-export const { useAddWishlistMutation } = wishlistApi;
+export const { useAddWishlistMutation, useGetWishlistQuery } = wishlistApi;

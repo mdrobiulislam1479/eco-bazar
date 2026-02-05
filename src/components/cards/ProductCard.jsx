@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Eye, Star, ShoppingCart } from "lucide-react";
+import { Eye, ShoppingCart } from "lucide-react";
 import WishlistButton from "../ui/buttons/WishlistButton";
 
 export default function ProductCard({ product }) {

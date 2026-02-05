@@ -4,6 +4,7 @@ import { Search, Heart, ShoppingCart, Menu, X } from "lucide-react";
 import Container from "../../ui/Container";
 import IconButton from "../../ui/IconButton";
 import Logo from "../../ui/Logo";
+import Link from "next/link";
 
 const ICON_SIZE = 20;
 
@@ -21,9 +22,9 @@ export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
 
         {/* Actions */}
         <div className="order-2 flex items-center gap-4 lg:order-0 lg:gap-5">
-          <IconButton label="Wishlist">
+          <Link href="/wishlist">
             <Heart size={ICON_SIZE} />
-          </IconButton>
+          </Link>
 
           <div className="flex items-center gap-2 lg:gap-3">
             <button
