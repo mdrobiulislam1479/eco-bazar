@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, Eye, Star, ShoppingCart } from "lucide-react";
+import WishlistButton from "../ui/buttons/WishlistButton";
 
 export default function ProductCard({ product }) {
   const hasDiscount = product.discountPercentage > 0;
@@ -26,12 +27,7 @@ export default function ProductCard({ product }) {
 
       {/* Action Icons */}
       <div className="absolute right-3 top-3 z-10 flex flex-col gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-        <button
-          className="rounded-full border p-2 transition-colors border-gray-200 bg-white hover:bg-green-500 hover:text-white"
-          aria-label="wishlist"
-        >
-          <Heart size={18} />
-        </button>
+        <WishlistButton productId={product.id} />
 
         <Link
           href={`/shop/${product.id}`}
