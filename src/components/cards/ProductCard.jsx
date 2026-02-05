@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Eye, ShoppingCart } from "lucide-react";
 import WishlistButton from "../ui/buttons/WishlistButton";
+import { useAddToCartMutation } from "@/redux/api/cartApi";
 
 export default function ProductCard({ product }) {
+  const [addToCart] = useAddToCartMutation();
   const hasDiscount = product.discountPercentage > 0;
   const finalPrice = hasDiscount
     ? (
@@ -79,7 +81,10 @@ export default function ProductCard({ product }) {
 
         {/* Cart Button */}
         <button
-          className="rounded-full bg-gray-100 p-3 text-gray-600 group-hover:bg-green-600 group-hover:text-white transition-all"
+          onClick={async () => {
+            await addToCart({ productId: product.id, qty: 1 });
+          }}
+          className="rounded-full bg-gray-100 p-3 text-gray-600 group-hover:bg-green-600 group-hover:text-white transition-all cursor-pointer"
           aria-label="add-to-cart"
         >
           <ShoppingCart size={20} />

@@ -2,13 +2,16 @@
 
 import { Search, Heart, ShoppingCart, Menu, X } from "lucide-react";
 import Container from "../../ui/Container";
-import IconButton from "../../ui/IconButton";
 import Logo from "../../ui/Logo";
 import Link from "next/link";
+import { useGetWishlistQuery } from "@/redux/api/wishlistApi";
 
 const ICON_SIZE = 20;
 
 export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
+  const { data, isLoading } = useGetWishlistQuery();
+  const count = data?.items?.length || 0;
+
   return (
     <div className="bg-white">
       <Container className="flex flex-wrap items-center justify-between gap-4 py-5 lg:gap-6">
@@ -22,8 +25,11 @@ export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
 
         {/* Actions */}
         <div className="order-2 flex items-center gap-4 lg:order-0 lg:gap-5">
-          <Link href="/wishlist" className="hover:text-[#00b207]">
+          <Link href="/wishlist" className="hover:text-[#00b207] relative">
             <Heart size={ICON_SIZE} />
+            <span className="absolute -right-2 -top-2 rounded-full bg-[#00b207] px-1.5 py-0.5 text-xs font-bold leading-none text-white">
+              {isLoading ? 0 : count}
+            </span>
           </Link>
 
           <div className="flex items-center gap-2 lg:gap-3">

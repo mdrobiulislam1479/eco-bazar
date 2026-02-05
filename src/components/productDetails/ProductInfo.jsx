@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Heart } from "lucide-react";
+import AddToCartButton from "../ui/buttons/AddToCartButton";
+import WishlistButton from "../ui/buttons/WishlistButton";
 
 export default function ProductInfo({ product }) {
   const [qty, setQty] = useState(1);
@@ -65,16 +67,13 @@ export default function ProductInfo({ product }) {
           </button>
         </div>
 
-        <button className="flex-1 bg-[#00B207] text-white py-3 rounded-full font-medium hover:bg-green-600">
-          Add to Cart
-        </button>
+        <AddToCartButton
+          qty={qty}
+          className={"flex-1"}
+          productId={product.id}
+        />
 
-        <button
-          className="h-12 w-12 rounded-full border flex items-center justify-center border-gray-200 hover:bg-[#20B52610] hover:text-green-700"
-          aria-label="wishlist"
-        >
-          <Heart size={18} />
-        </button>
+        <WishlistButton productId={product.id} />
       </div>
 
       {/* meta */}
