@@ -34,7 +34,7 @@ export default function ProductCard({ product }) {
         </button>
 
         <Link
-          href={`/product/${product.id}`}
+          href={`/shop/${product.id}`}
           className="rounded-full border border-gray-200 bg-white p-2 hover:bg-green-500 hover:text-white transition-colors"
           aria-label="quick-view"
         >
@@ -43,7 +43,7 @@ export default function ProductCard({ product }) {
       </div>
 
       {/* Product Image */}
-      <Link href={`/product/${product.id}`}>
+      <Link href={`/shop/${product.id}`}>
         <div className="relative mb-4 h-48 w-full">
           <Image
             src={product.thumbnail}
@@ -58,7 +58,7 @@ export default function ProductCard({ product }) {
       <div className="flex justify-between items-end">
         <div>
           <Link
-            href={`/product/${product.id}`}
+            href={`/shop/${product.id}`}
             className="text-sm text-gray-700 group-hover:text-green-600 transition-colors line-clamp-1"
           >
             {product.title}
@@ -76,13 +76,8 @@ export default function ProductCard({ product }) {
 
           {/* Rating Stars */}
           <div className="mt-1 flex text-orange-400">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                size={12}
-                fill={i < rating ? "currentColor" : "none"}
-              />
-            ))}
+            {"★".repeat(rating)}
+            <span className="text-gray-300">{"★".repeat(5 - rating)}</span>
           </div>
         </div>
 

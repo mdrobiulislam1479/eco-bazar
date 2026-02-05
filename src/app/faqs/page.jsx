@@ -1,4 +1,4 @@
-import AboutEcoBazar from "@/components/sections/AboutEcoBazar";
+import AboutEcoBazar from "@/components/faqs/FAQS";
 
 const FAQS = () => {
   return (
