@@ -2,6 +2,16 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { dbConnect } from "@/lib/dbConnect";
 
+export async function GET() {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.email;
+  if (!userId)
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+
+  const cart = await dbConnect("cart").findOne({ userId });
+  return Response.json({ cart: cart || { userId, items: [] } });
+}
+
 export async function POST(req) {
   const session = await getServerSession(authOptions);
   const userId = session?.user?.email;

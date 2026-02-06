@@ -4,6 +4,9 @@ export const cartApi = createApi({
   reducerPath: "cartApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api", credentials: "include" }),
   endpoints: (builder) => ({
+    getCart: builder.query({
+      query: () => "/cart",
+    }),
     addToCart: builder.mutation({
       query: ({ productId, qty = 1 }) => ({
         url: "/cart",
@@ -14,4 +17,4 @@ export const cartApi = createApi({
   }),
 });
 
-export const { useAddToCartMutation } = cartApi;
+export const { useAddToCartMutation, useGetCartQuery } = cartApi;
