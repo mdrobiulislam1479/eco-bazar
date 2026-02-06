@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetCartQuery } from "@/redux/api/cartApi";
+import { useGetCartQuery, useUpdateQtyMutation } from "@/redux/api/cartApi";
 import { useGetGroceriesQuery } from "@/redux/api/productsApi";
 import Image from "next/image";
 import Container from "../ui/Container";
@@ -9,6 +9,7 @@ export default function CartClient() {
   const { data: cartData, isLoading: cartLoading, refetch } = useGetCartQuery();
   const { data: groceryData, isLoading: productLoading } =
     useGetGroceriesQuery();
+  const [updateQty] = useUpdateQtyMutation();
 
   if (cartLoading || productLoading)
     return <p className="py-10 text-center">Loading...</p>;
@@ -31,6 +32,12 @@ export default function CartClient() {
   const shipping = 0;
   const total = subtotal + shipping;
 
+  const changeQty = async (id, nextQty) => {
+    if (nextQty < 1) return;
+    await updateQty({ productId: id, qty: nextQty });
+    refetch();
+  };
+
   return (
     <section className="py-10">
       <Container>
@@ -41,7 +48,7 @@ export default function CartClient() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Left: table */}
           <div className="lg:col-span-8 border border-gray-200 rounded-md bg-white overflow-hidden">
-            {/* Header: Hidden on mobile, shown as grid on md+ */}
+            {/* Header */}
             <div className="hidden md:grid grid-cols-12 px-4 py-3 text-sm uppercase text-gray-500 border-b border-gray-200">
               <div className="col-span-5">Product</div>
               <div className="col-span-2">Price</div>
@@ -58,7 +65,6 @@ export default function CartClient() {
             {rows.map((p) => (
               <div
                 key={p.id}
-                /* Mobile: Stacked Flex | Desktop: Grid */
                 className="flex flex-col md:grid md:grid-cols-12 items-center px-4 py-6 md:py-4 border-b border-gray-200 last:border-b-0 gap-4 md:gap-0"
               >
                 {/* Product Info */}
@@ -77,30 +83,35 @@ export default function CartClient() {
                     <p className="font-medium text-gray-900 md:font-normal">
                       {p.title}
                     </p>
-                    {/* Mobile-only price display */}
                     <p className="md:hidden text-sm text-gray-500">
                       ${Number(p.price).toFixed(2)}
                     </p>
                   </div>
                 </div>
 
-                {/* Price: Hidden on mobile (moved inside product info) */}
+                {/* Price */}
                 <div className="hidden md:block md:col-span-2 text-gray-600">
                   ${Number(p.price).toFixed(2)}
                 </div>
 
-                {/* Quantity & Subtotal Row for Mobile */}
+                {/* Quantity */}
                 <div className="w-full md:col-span-5 flex items-center justify-between md:contents">
                   {/* Quantity Controls */}
                   <div className="md:col-span-3">
                     <div className="inline-flex items-center border border-gray-200 rounded-full overflow-hidden p-1 text-gray-600">
-                      <button className="h-8 w-8 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                      <button
+                        onClick={() => changeQty(p.id, p.qty - 1)}
+                        className="h-8 w-8 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+                      >
                         -
                       </button>
                       <span className="px-4 py-1 min-w-10 text-center font-medium">
                         {p.qty}
                       </span>
-                      <button className="h-8 w-8 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200 transition-colors">
+                      <button
+                        onClick={() => changeQty(p.id, p.qty + 1)}
+                        className="h-8 w-8 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+                      >
                         +
                       </button>
                     </div>

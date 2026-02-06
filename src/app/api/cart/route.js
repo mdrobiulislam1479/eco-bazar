@@ -53,3 +53,35 @@ export async function POST(req) {
 
   return Response.json({ ok: true });
 }
+
+export async function PATCH(req) {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.email;
+  if (!userId)
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+
+  const body = await req.json();
+  const productId = Number(body?.productId);
+  const qty = Number(body?.qty);
+
+  if (!Number.isFinite(productId) || !Number.isFinite(qty) || qty < 1) {
+    return Response.json(
+      { message: "productId number & qty >= 1 required" },
+      { status: 400 },
+    );
+  }
+
+  const cart = await dbConnect("cart").findOne({ userId });
+  if (!cart) return Response.json({ ok: true });
+
+  const items = (cart.items || []).map((i) =>
+    i.productId === productId ? { ...i, qty } : i,
+  );
+
+  await dbConnect("cart").updateOne(
+    { userId },
+    { $set: { items, updatedAt: new Date() } },
+  );
+
+  return Response.json({ ok: true });
+}
