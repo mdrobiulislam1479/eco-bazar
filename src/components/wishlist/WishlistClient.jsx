@@ -168,6 +168,7 @@ export default function WishlistClient() {
                     </button>
 
                     <button
+                      onClick={() => handleRemove(p.id)}
                       className="h-8 w-8 rounded-full border border-gray-200 flex items-center justify-center hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-all text-[#666666] cursor-pointer"
                       aria-label="Remove"
                     >

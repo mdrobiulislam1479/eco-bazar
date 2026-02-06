@@ -85,3 +85,32 @@ export async function PATCH(req) {
 
   return Response.json({ ok: true });
 }
+
+export async function DELETE(req) {
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.email;
+  if (!userId)
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+
+  const { searchParams } = new URL(req.url);
+  const productId = Number(searchParams.get("productId"));
+
+  if (!Number.isFinite(productId)) {
+    return Response.json(
+      { message: "productId must be a number" },
+      { status: 400 },
+    );
+  }
+
+  const cart = await dbConnect("cart").findOne({ userId });
+  if (!cart) return Response.json({ ok: true });
+
+  const items = (cart.items || []).filter((i) => i.productId !== productId);
+
+  await dbConnect("cart").updateOne(
+    { userId },
+    { $set: { items, updatedAt: new Date() } },
+  );
+
+  return Response.json({ ok: true });
+}

@@ -1,6 +1,10 @@
 "use client";
 
-import { useGetCartQuery, useUpdateQtyMutation } from "@/redux/api/cartApi";
+import {
+  useGetCartQuery,
+  useRemoveCartItemMutation,
+  useUpdateQtyMutation,
+} from "@/redux/api/cartApi";
 import { useGetGroceriesQuery } from "@/redux/api/productsApi";
 import Image from "next/image";
 import Container from "../ui/Container";
@@ -10,6 +14,7 @@ export default function CartClient() {
   const { data: groceryData, isLoading: productLoading } =
     useGetGroceriesQuery();
   const [updateQty] = useUpdateQtyMutation();
+  const [removeItem] = useRemoveCartItemMutation();
 
   if (cartLoading || productLoading)
     return <p className="py-10 text-center">Loading...</p>;
@@ -35,6 +40,11 @@ export default function CartClient() {
   const changeQty = async (id, nextQty) => {
     if (nextQty < 1) return;
     await updateQty({ productId: id, qty: nextQty });
+    refetch();
+  };
+
+  const remove = async (id) => {
+    await removeItem(id);
     refetch();
   };
 
@@ -123,6 +133,7 @@ export default function CartClient() {
                       ${(Number(p.price) * p.qty).toFixed(2)}
                     </span>
                     <button
+                      onClick={() => remove(p.id)}
                       className="h-8 w-8 rounded-full border border-gray-200 flex items-center justify-center hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-all text-[#666666] cursor-pointer"
                       aria-label="Remove"
                     >
@@ -134,17 +145,21 @@ export default function CartClient() {
             ))}
 
             {/* Footer Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-6 gap-3">
-              <button className="w-full sm:w-auto px-6 py-2.5 rounded-full text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors font-medium">
-                Return to shop
-              </button>
-              <button
-                onClick={refetch}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-full text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors font-medium"
-              >
-                Update Cart
-              </button>
-            </div>
+            {rows.length < 0 ? (
+              <div className="flex flex-col sm:flex-row items-center justify-between px-4 py-6 gap-3">
+                <button className="w-full sm:w-auto px-6 py-2.5 rounded-full text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors font-medium">
+                  Return to shop
+                </button>
+                <button
+                  onClick={refetch}
+                  className="w-full sm:w-auto px-6 py-2.5 rounded-full text-gray-700 bg-gray-100 hover:bg-gray-200 transition-colors font-medium"
+                >
+                  Update Cart
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           {/* Right: cart total */}
