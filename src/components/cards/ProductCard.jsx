@@ -36,7 +36,7 @@ export default function ProductCard({ product }) {
           className="rounded-full border border-gray-200 bg-white p-2 hover:bg-green-500 hover:text-white transition-colors"
           aria-label="quick-view"
         >
-          <Eye size={18} />
+          <Eye size={22} />
         </Link>
       </div>
 

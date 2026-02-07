@@ -8,6 +8,7 @@ import {
 import { useGetGroceriesQuery } from "@/redux/api/productsApi";
 import Image from "next/image";
 import Container from "../ui/Container";
+import Link from "next/link";
 
 export default function CartClient() {
   const { data: cartData, isLoading: cartLoading, refetch } = useGetCartQuery();
@@ -183,9 +184,12 @@ export default function CartClient() {
               </div>
             </div>
 
-            <button className="w-full mt-5 py-3 rounded-full bg-[#00B207] text-white font-semibold hover:bg-green-600">
+            <Link
+              href="/checkout"
+              className="w-full mt-5 py-3 rounded-full bg-[#00B207] text-white font-semibold hover:bg-green-600 block text-center"
+            >
               Proceed to checkout
-            </button>
+            </Link>
           </div>
 
           {/* Coupon */}
