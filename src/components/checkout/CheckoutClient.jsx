@@ -13,7 +13,7 @@ export default function CheckoutClient() {
     lastName: "",
     company: "",
     address: "",
-    country: "",
+    country: "Bangladesh",
     state: "",
     zip: "",
     email: "",

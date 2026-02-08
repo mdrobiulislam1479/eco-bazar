@@ -1,3 +1,5 @@
+import BDStatesSelect from "./BDStatesSelect";
+
 const BillingInfo = ({ billing, setBilling }) => {
   const onChange = (e) => {
     setBilling({ ...billing, [e.target.name]: e.target.value });
@@ -64,23 +66,13 @@ const BillingInfo = ({ billing, setBilling }) => {
             <label className="block text-sm mb-1">Country / Region</label>
             <input
               name="country"
-              value={billing.country}
-              onChange={onChange}
               placeholder="Bangladesh"
-              className="w-full border border-gray-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full border border-gray-200 rounded-md px-4 py-2 outline-none"
+              readOnly
             />
           </div>
 
-          <div>
-            <label className="block text-sm mb-1">States</label>
-            <input
-              name="state"
-              value={billing.state}
-              onChange={onChange}
-              placeholder="Khulna"
-              className="w-full border border-gray-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
-            />
-          </div>
+          <BDStatesSelect value={billing.state} onChange={onChange} />
 
           <div>
             <label className="block text-sm mb-1">Zip Code</label>
