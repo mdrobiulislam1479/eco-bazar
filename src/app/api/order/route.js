@@ -10,6 +10,20 @@ export async function POST(req) {
 
   const { billing } = await req.json();
 
+  if (
+    !billing.firstName ||
+    !billing.lastName ||
+    !billing.address ||
+    !billing.phone ||
+    !billing.state ||
+    !billing.zip
+  ) {
+    return Response.json(
+      { message: "Please, Fill in all required fields!" },
+      { status: 400 },
+    );
+  }
+
   const cartCol = await dbConnect("cart");
   const orderCol = await dbConnect("orders");
 

@@ -1,8 +1,16 @@
 "use client";
 
+import { useGetCartQuery } from "@/redux/api/cartApi";
+import { usePlaceOrderMutation } from "@/redux/api/orderApi";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const OrderSummery = ({ cartItems, products, loading, billing }) => {
+  const [placeOrder, { isLoading }] = usePlaceOrderMutation();
+  const { refetch } = useGetCartQuery();
+  const router = useRouter();
+
   if (loading) return <div className="border rounded-lg p-6">Loading...</div>;
 
   const map = new Map(products.map((p) => [p.id, p]));
@@ -16,6 +24,36 @@ const OrderSummery = ({ cartItems, products, loading, billing }) => {
     .filter(Boolean);
 
   const subtotal = rows.reduce((sum, r) => sum + Number(r.price) * r.qty, 0);
+
+  const handlePlaceOrder = async () => {
+    if (
+      !billing.firstName ||
+      !billing.lastName ||
+      !billing.address ||
+      !billing.phone ||
+      !billing.state ||
+      !billing.zip
+    ) {
+      Swal.fire("Error", "Please, Fill in all required fields!", "error");
+      return;
+    }
+
+    try {
+      await placeOrder({
+        billing: { ...billing, subtotal },
+      }).unwrap();
+
+      await refetch();
+      Swal.fire("Success", "Order placed successfully!", "success");
+      router.push("/");
+    } catch (err) {
+      Swal.fire(
+        "Error",
+        err?.data?.message || "Order failed! Please try again.",
+        "error",
+      );
+    }
+  };
 
   return (
     <div className="border border-gray-200 rounded-lg p-6 h-fit shadow-sm">
@@ -75,8 +113,12 @@ const OrderSummery = ({ cartItems, products, loading, billing }) => {
         </label>
       </div>
 
-      <button className="w-full mt-5 bg-[#00B207] hover:bg-green-600 disabled:opacity-50 text-white font-semibold py-3 rounded-full transition-colors">
-        Place Order
+      <button
+        onClick={handlePlaceOrder}
+        disabled={isLoading || rows.length === 0}
+        className="w-full mt-5 bg-[#00B207] hover:bg-green-600 disabled:opacity-50 text-white font-semibold py-3 rounded-full transition-colors"
+      >
+        {isLoading ? "Placing..." : "Place Order"}
       </button>
     </div>
   );

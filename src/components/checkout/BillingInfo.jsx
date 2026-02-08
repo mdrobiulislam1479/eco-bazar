@@ -20,6 +20,7 @@ const BillingInfo = ({ billing, setBilling }) => {
               type="text"
               placeholder="Your first name"
               className="w-full border border-gray-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              required
             />
           </div>
 
@@ -32,6 +33,7 @@ const BillingInfo = ({ billing, setBilling }) => {
               type="text"
               placeholder="Your last name"
               className="w-full border border-gray-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              required
             />
           </div>
 
@@ -59,6 +61,7 @@ const BillingInfo = ({ billing, setBilling }) => {
               type="text"
               placeholder="Your Address"
               className="w-full border border-gray-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              required
             />
           </div>
 
@@ -66,7 +69,7 @@ const BillingInfo = ({ billing, setBilling }) => {
             <label className="block text-sm mb-1">Country / Region</label>
             <input
               name="country"
-              placeholder="Bangladesh"
+              value={billing.country}
               className="w-full border border-gray-200 rounded-md px-4 py-2 outline-none"
               readOnly
             />
@@ -83,6 +86,7 @@ const BillingInfo = ({ billing, setBilling }) => {
               type="text"
               placeholder="Zip Code"
               className="w-full border border-gray-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              required
             />
           </div>
 
@@ -91,10 +95,9 @@ const BillingInfo = ({ billing, setBilling }) => {
             <input
               name="email"
               value={billing.email}
-              onChange={onChange}
               type="email"
-              placeholder="Email Address"
-              className="w-full border border-gray-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              className="w-full border border-gray-200 rounded-md px-4 py-2   outline-none"
+              readOnly
             />
           </div>
 
@@ -107,6 +110,7 @@ const BillingInfo = ({ billing, setBilling }) => {
               type="tel"
               placeholder="Phone number"
               className="w-full border border-gray-200 rounded-md px-4 py-2 focus:ring-2 focus:ring-green-500 outline-none"
+              required
             />
           </div>
         </div>

@@ -6,8 +6,11 @@ import BillingInfo from "./BillingInfo";
 import OrderSummery from "./OrderSummery";
 import { useState } from "react";
 import { useGetGroceriesQuery } from "@/redux/api/productsApi";
+import { useSession } from "next-auth/react";
 
 export default function CheckoutClient() {
+  const session = useSession();
+
   const [billing, setBilling] = useState({
     firstName: "",
     lastName: "",
@@ -16,7 +19,7 @@ export default function CheckoutClient() {
     country: "Bangladesh",
     state: "",
     zip: "",
-    email: "",
+    email: session.data?.user?.email,
     phone: "",
     notes: "",
   });
