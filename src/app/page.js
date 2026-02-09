@@ -6,6 +6,7 @@ import InstagramFollow from "@/components/home/InstagramFollow";
 import Partner from "@/components/home/Partner";
 import PopularProducts from "@/components/home/PopularProducts";
 import SummerSaleBanner from "@/components/home/SummerSaleBanner";
+import Testimonials from "@/components/shared/Testimonials";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <Deals />
       <SummerSaleBanner />
       <FeaturedProducts />
+      <Testimonials />
       <Partner />
       <InstagramFollow />
     </div>
