@@ -6,6 +6,7 @@ import Logo from "../../ui/Logo";
 import Link from "next/link";
 import { useGetWishlistQuery } from "@/redux/api/wishlistApi";
 import { useGetCartQuery } from "@/redux/api/cartApi";
+import { useGetGroceriesQuery } from "@/redux/api/productsApi";
 
 const ICON_SIZE = 20;
 
@@ -13,9 +14,23 @@ export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
   const { data: wishlistData, isLoading: wishlistLoading } =
     useGetWishlistQuery();
   const { data: cartData, isLoading: cartLoading } = useGetCartQuery();
+  const { data: groceryData } = useGetGroceriesQuery();
 
   const wishlistCount = wishlistData?.items?.length || 0;
   const cartCount = cartData?.cart?.items?.length || 0;
+
+  const cartItems = cartData?.cart?.items || [];
+  const products = groceryData?.products || [];
+
+  const productMap = new Map(products.map((p) => [p.id, p]));
+
+  const cartTotal = cartItems.reduce((sum, item) => {
+    const p = productMap.get(item.productId);
+    if (!p) return sum;
+    return sum + Number(p.price) * Number(item.qty || 0);
+  }, 0);
+
+  const totalText = cartLoading ? "..." : `$${cartTotal.toFixed(2)}`;
 
   return (
     <div className="bg-white">
@@ -51,7 +66,7 @@ export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
             <div className="hidden flex-col text-xs text-[#7a7a7a] lg:flex">
               <span>Shopping cart:</span>
               <span className="text-sm font-semibold text-[#1a1a1a]">
-                $57.00
+                {totalText}
               </span>
             </div>
           </div>
