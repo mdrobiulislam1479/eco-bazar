@@ -5,15 +5,15 @@ import {
   useRemoveCartItemMutation,
   useUpdateQtyMutation,
 } from "@/redux/api/cartApi";
-import { useGetGroceriesQuery } from "@/redux/api/productsApi";
 import Image from "next/image";
 import Container from "../ui/Container";
 import Link from "next/link";
+import { useGetAllGroceriesQuery } from "@/redux/api/productsApi";
 
 export default function CartClient() {
   const { data: cartData, isLoading: cartLoading, refetch } = useGetCartQuery();
   const { data: groceryData, isLoading: productLoading } =
-    useGetGroceriesQuery();
+    useGetAllGroceriesQuery();
   const [updateQty] = useUpdateQtyMutation();
   const [removeItem] = useRemoveCartItemMutation();
 

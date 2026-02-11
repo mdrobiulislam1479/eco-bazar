@@ -6,7 +6,7 @@ import Logo from "../../ui/Logo";
 import Link from "next/link";
 import { useGetWishlistQuery } from "@/redux/api/wishlistApi";
 import { useGetCartQuery } from "@/redux/api/cartApi";
-import { useGetGroceriesQuery } from "@/redux/api/productsApi";
+import { useGetAllGroceriesQuery } from "@/redux/api/productsApi";
 
 const ICON_SIZE = 20;
 
@@ -14,7 +14,7 @@ export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
   const { data: wishlistData, isLoading: wishlistLoading } =
     useGetWishlistQuery();
   const { data: cartData, isLoading: cartLoading } = useGetCartQuery();
-  const { data: groceryData } = useGetGroceriesQuery();
+  const { data: groceryData } = useGetAllGroceriesQuery();
 
   const wishlistCount = wishlistData?.items?.length || 0;
   const cartCount = cartData?.cart?.items?.length || 0;

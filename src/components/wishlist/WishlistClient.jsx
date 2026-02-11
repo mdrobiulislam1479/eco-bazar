@@ -1,6 +1,5 @@
 "use client";
 
-import { useGetGroceriesQuery } from "@/redux/api/productsApi";
 import {
   useGetWishlistQuery,
   useRemoveWishlistMutation,
@@ -8,6 +7,7 @@ import {
 import Image from "next/image";
 import Container from "../ui/Container";
 import { useAddToCartMutation } from "@/redux/api/cartApi";
+import { useGetAllGroceriesQuery } from "@/redux/api/productsApi";
 
 export default function WishlistClient() {
   const {
@@ -16,7 +16,7 @@ export default function WishlistClient() {
     refetch,
   } = useGetWishlistQuery();
   const { data: groceryData, isLoading: productLoading } =
-    useGetGroceriesQuery();
+    useGetAllGroceriesQuery();
   const [remove] = useRemoveWishlistMutation();
   const [addToCart] = useAddToCartMutation();
 
@@ -25,6 +25,8 @@ export default function WishlistClient() {
 
   const wishItems = wishData?.items || [];
   const products = groceryData?.products || [];
+
+  console.log(wishItems, products);
 
   const productMap = new Map(products.map((p) => [p.id, p]));
   const rows = wishItems

@@ -6,6 +6,11 @@ export const productsApi = createApi({
     baseUrl: "https://dummyjson.com",
   }),
   endpoints: (builder) => ({
+    // get all groceries
+    getAllGroceries: builder.query({
+      query: () => `/products/category/groceries`,
+    }),
+
     // get groceries
     getGroceries: builder.query({
       query: ({ limit = 12, skip = 0 } = {}) =>
@@ -19,4 +24,8 @@ export const productsApi = createApi({
   }),
 });
 
-export const { useGetGroceriesQuery, useGetProductByIdQuery } = productsApi;
+export const {
+  useGetGroceriesQuery,
+  useGetProductByIdQuery,
+  useGetAllGroceriesQuery,
+} = productsApi;
