@@ -5,31 +5,46 @@ import ProductCard from "../cards/ProductCard";
 import Container from "../ui/Container";
 import FilterSidebar from "./FilterSidebar";
 import Pagination from "./Pagination";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function ShopClient() {
   const [page, setPage] = useState(1);
   const skip = (page - 1) * 12;
+
+  const [sort, setSort] = useState("priceLow");
+  const [priceRange, setPriceRange] = useState([0, 20]);
+  const [selectedRatings, setSelectedRatings] = useState([]);
+  const [selectedTags, setSelectedTags] = useState(["Low fat"]);
+
   const { data, isLoading, isError } = useGetGroceriesQuery({
     limit: 12,
     skip,
   });
 
-  const [sort, setSort] = useState("priceLow");
+  console.log(data);
 
   const products = data?.products ?? [];
   const total = data?.total ?? 0;
   const totalPages = Math.ceil(total / 12);
 
+  useEffect(() => {
+    setPage(1);
+  }, [sort, priceRange]);
+
   const filteredProducts = useMemo(() => {
     let arr = [...products];
+
+    // price filter
+    arr = arr.filter(
+      (p) => p.price >= priceRange[0] && p.price <= priceRange[1],
+    );
 
     // sort
     if (sort === "priceLow") arr.sort((a, b) => a.price - b.price);
     if (sort === "priceHigh") arr.sort((a, b) => b.price - a.price);
 
     return arr;
-  }, [products, sort]);
+  }, [products, sort, priceRange]);
 
   if (isLoading) return <div className="p-6">Loading...</div>;
   if (isError)
@@ -38,7 +53,12 @@ export default function ShopClient() {
   return (
     <Container className="py-6 flex gap-5">
       <div className="hidden md:flex">
-        <FilterSidebar />
+        <FilterSidebar
+          priceRange={priceRange}
+          setPriceRange={setPriceRange}
+          selectedRatings={selectedRatings}
+          selectedTags={selectedTags}
+        />
       </div>
 
       <div className="flex-1">

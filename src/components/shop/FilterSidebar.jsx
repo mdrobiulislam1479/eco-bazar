@@ -65,10 +65,12 @@ function SectionHeader({ title, open, toggle }) {
   );
 }
 
-export default function FilterSidebar() {
-  const [priceRange, setPriceRange] = useState([1, 100]);
-  const [selectedRatings, setSelectedRatings] = useState([]);
-  const [selectedTags, setSelectedTags] = useState(["Low fat"]);
+export default function FilterSidebar({
+  priceRange,
+  setPriceRange,
+  selectedRatings,
+  selectedTags,
+}) {
   const [openSections, setOpenSections] = useState({
     price: true,
     rating: true,
@@ -125,14 +127,14 @@ export default function FilterSidebar() {
                 <div
                   className="absolute h-full rounded-full bg-green-500"
                   style={{
-                    left: `${((priceRange[0] - 1) / 99) * 100}%`,
-                    right: `${100 - ((priceRange[1] - 1) / 99) * 100}%`,
+                    left: `${((priceRange[0] - 1) / 19) * 100}%`,
+                    right: `${100 - ((priceRange[1] - 1) / 19) * 100}%`,
                   }}
                 />
                 <input
                   type="range"
                   min={1}
-                  max={100}
+                  max={20}
                   value={priceRange[0]}
                   onChange={(e) =>
                     setPriceRange([
@@ -145,12 +147,12 @@ export default function FilterSidebar() {
                 <input
                   type="range"
                   min={1}
-                  max={100}
+                  max={20}
                   value={priceRange[1]}
                   onChange={(e) =>
                     setPriceRange([
                       priceRange[0],
-                      Math.max(+e.target.value, priceRange[0] + 4),
+                      Math.max(+e.target.value, priceRange[0] + 2),
                     ])
                   }
                   className="absolute inset-0 w-full opacity-0 cursor-pointer"
@@ -160,12 +162,12 @@ export default function FilterSidebar() {
                 <div
                   className="absolute top-1/2 -translate-y-1/2 translate-x-1/2 w-4 h-4 rounded-full bg-white border-2 border-green-500 shadow pointer-events-none"
                   style={{
-                    right: `${100 - ((priceRange[1] - 1) / 99) * 100}%`,
+                    right: `${100 - ((priceRange[1] - 1) / 19) * 100}%`,
                   }}
                 />
               </div>
               <p className="text-xs text-gray-500">
-                Price: {priceRange[0]} — {priceRange[1]}
+                Price: ${priceRange[0]} — ${priceRange[1]}
               </p>
             </div>
           )}
