@@ -68,8 +68,9 @@ function SectionHeader({ title, open, toggle }) {
 export default function FilterSidebar({
   priceRange,
   setPriceRange,
-  selectedRatings,
+  selectedRating,
   selectedTags,
+  setSelectedRating,
 }) {
   const [openSections, setOpenSections] = useState({
     price: true,
@@ -80,10 +81,9 @@ export default function FilterSidebar({
   const toggleSection = (key) =>
     setOpenSections((s) => ({ ...s, [key]: !s[key] }));
 
-  const toggleRating = (r) =>
-    setSelectedRatings((prev) =>
-      prev.includes(r) ? prev.filter((x) => x !== r) : [...prev, r],
-    );
+  const handleRatingChange = (value) => {
+    setSelectedRating(value);
+  };
 
   const toggleTag = (tag) =>
     setSelectedTags((prev) =>
@@ -185,14 +185,14 @@ export default function FilterSidebar({
           {openSections.rating && (
             <div className="mt-3 space-y-2.5">
               {ratings.map((r) => {
-                const checked = selectedRatings.includes(r);
+                const checked = selectedRating === r;
                 return (
                   <label
                     key={r}
                     className="flex items-center gap-3 cursor-pointer group"
                   >
                     <div
-                      onClick={() => toggleRating(r)}
+                      onClick={() => handleRatingChange(r)}
                       className={`w-4 h-4 rounded flex items-center justify-center border-2 transition-all ${
                         checked
                           ? "bg-green-500 border-green-500"
