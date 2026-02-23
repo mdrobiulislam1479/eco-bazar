@@ -191,25 +191,6 @@ export default function CartClient() {
               Proceed to checkout
             </Link>
           </div>
-
-          {/* Coupon */}
-          <div className="lg:col-span-8 flex flex-col md:flex-row items-center justify-between w-full p-4 border border-gray-200 rounded-lg bg-white shadow-sm gap-4 md:gap-0">
-            <span className="text-xl font-medium text-gray-900 whitespace-nowrap px-2">
-              Coupon Code
-            </span>
-
-            <div className="relative flex items-center w-full md:w-auto md:flex-1 md:ml-6">
-              <input
-                type="text"
-                placeholder="Enter code"
-                className="w-full py-4 pl-6 pr-32 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-200 transition-all placeholder-gray-400"
-              />
-
-              <button className="absolute right-1 top-1 bottom-1 px-8 bg-[#333333] text-white font-medium rounded-full hover:bg-black transition-colors">
-                Apply Coupon
-              </button>
-            </div>
-          </div>
         </div>
       </Container>
     </section>
