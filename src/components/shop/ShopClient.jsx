@@ -5,7 +5,7 @@ import ProductCard from "../cards/ProductCard";
 import Container from "../ui/Container";
 import FilterSidebar from "./FilterSidebar";
 import Pagination from "./Pagination";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function ShopClient() {
   const [page, setPage] = useState(1);
@@ -15,9 +15,21 @@ export default function ShopClient() {
     skip,
   });
 
+  const [sort, setSort] = useState("priceLow");
+
   const products = data?.products ?? [];
   const total = data?.total ?? 0;
   const totalPages = Math.ceil(total / 12);
+
+  const filteredProducts = useMemo(() => {
+    let arr = [...products];
+
+    // sort
+    if (sort === "priceLow") arr.sort((a, b) => a.price - b.price);
+    if (sort === "priceHigh") arr.sort((a, b) => b.price - a.price);
+
+    return arr;
+  }, [products, sort]);
 
   if (isLoading) return <div className="p-6">Loading...</div>;
   if (isError)
@@ -25,14 +37,20 @@ export default function ShopClient() {
 
   return (
     <Container className="py-6 flex gap-5">
-      <FilterSidebar />
+      <div className="hidden md:flex">
+        <FilterSidebar />
+      </div>
 
       <div className="flex-1">
         {/* Top bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
           <div className="flex items-center gap-2">
             <span className="text-sm text-gray-600">Sort by price:</span>
-            <select className="border border-gray-200 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-green-500">
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value)}
+              className="border border-gray-200 rounded-md px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-green-500"
+            >
               <option value="priceLow">Low - High</option>
               <option value="priceHigh">High - Low</option>
             </select>
@@ -45,8 +63,8 @@ export default function ShopClient() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {products.map((p) => (
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+          {filteredProducts.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
