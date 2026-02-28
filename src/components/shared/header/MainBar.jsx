@@ -1,16 +1,20 @@
 "use client";
 
-import { Search, Heart, ShoppingCart, Menu, X } from "lucide-react";
+import { Heart, ShoppingCart, Menu, X } from "lucide-react";
 import Container from "../../ui/Container";
 import Logo from "../../ui/Logo";
 import Link from "next/link";
 import { useGetWishlistQuery } from "@/redux/api/wishlistApi";
 import { useGetCartQuery } from "@/redux/api/cartApi";
 import { useGetAllGroceriesQuery } from "@/redux/api/productsApi";
+import { useState } from "react";
+import SearchModal from "@/components/ui/search/SearchModal";
+import SearchField from "@/components/ui/search/SearchField";
 
 const ICON_SIZE = 20;
 
 export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { data: wishlistData, isLoading: wishlistLoading } =
     useGetWishlistQuery();
   const { data: cartData, isLoading: cartLoading } = useGetCartQuery();
@@ -40,7 +44,7 @@ export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
 
         {/* Desktop Search */}
         <div className="hidden lg:inline w-130">
-          <SearchField />
+          <SearchField onOpenSearch={() => setIsSearchOpen(true)} />{" "}
         </div>
 
         {/* Actions */}
@@ -87,35 +91,15 @@ export default function MainBar({ isMenuOpen = false, onToggleMenu }) {
       {/* Mobile Search */}
       <div className="lg:hidden">
         <Container className="pb-4">
-          <SearchField />
+          <SearchField onOpenSearch={() => setIsSearchOpen(true)} />
         </Container>
+      </div>
+      <div className="flex justify-center items-center">
+        <SearchModal
+          isOpen={isSearchOpen}
+          onClose={() => setIsSearchOpen(false)}
+        />
       </div>
     </div>
   );
 }
-
-// Reusable search field
-const SearchField = () => {
-  return (
-    <>
-      <form
-        className="order-3 w-full items-center gap-2 rounded-md border border-[#e6e6e6] bg-white pl-4 flex lg:order-0"
-        role="search"
-      >
-        <Search size={ICON_SIZE} className="text-[#7a7a7a] shrink-0" />
-        <input
-          className="w-full flex-1 bg-transparent text-sm text-[#1a1a1a] outline-none placeholder-[#7a7a7a]"
-          type="search"
-          placeholder="Search"
-          aria-label="Search products"
-        />
-        <button
-          className="bg-[#00b207] px-6 py-2 text-sm font-semibold text-white transition hover:bg-[#0a8a0f] shrink-0 rounded-r-md border border-[#00b207]"
-          type="submit"
-        >
-          Search
-        </button>
-      </form>
-    </>
-  );
-};
