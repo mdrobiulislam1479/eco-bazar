@@ -1,18 +1,20 @@
 "use client";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function GoogleButton() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const handleLogin = async () => {
     const res = await signIn("google", {
       redirect: false,
-      callbackUrl: "/",
+      callbackUrl,
     });
 
-    router.push("/");
+    if (res?.url) router.push(res.url);
   };
 
   return (

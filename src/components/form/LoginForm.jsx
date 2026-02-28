@@ -4,10 +4,13 @@ import GoogleButton from "../ui/buttons/GoogleButton";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -33,11 +36,11 @@ const LoginForm = () => {
       redirect: false,
     });
 
-    if (res?.error) {
-      Swal.fire("Error", "Login Failed!", "error");
-    } else {
+    if (res?.ok) {
       Swal.fire("Success", "Login Successful!", "success");
-      router.push("/");
+      router.push(callbackUrl);
+    } else {
+      Swal.fire("Error", "Login Failed!", "error");
     }
   };
 

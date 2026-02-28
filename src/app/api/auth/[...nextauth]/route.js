@@ -41,15 +41,6 @@ export const authOptions = {
 
       return result.acknowledged;
     },
-    // async redirect({ url, baseUrl }) {
-    //   return baseUrl;
-    // },
-    // async session({ session, token, user }) {
-    //   return session;
-    // },
-    // async jwt({ token, user, account, profile, isNewUser }) {
-    //   return token;
-    // },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
