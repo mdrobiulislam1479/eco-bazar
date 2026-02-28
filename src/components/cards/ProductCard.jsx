@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Eye, ShoppingCart } from "lucide-react";
 import WishlistButton from "../ui/buttons/WishlistButton";
 import { useAddToCartMutation } from "@/redux/api/cartApi";
+import { toast } from "react-toastify";
 
 export default function ProductCard({ product }) {
   const [addToCart] = useAddToCartMutation();
@@ -17,6 +18,18 @@ export default function ProductCard({ product }) {
     : product.price.toFixed(2);
 
   const rating = Math.round(product.rating);
+
+  const handleAddToCart = async (id) => {
+    try {
+      await addToCart({ productId: id, qty: 1 }).unwrap();
+    } catch (err) {
+      if (err?.status === 401) {
+        toast.error("Please login first");
+      } else {
+        console.log(err);
+      }
+    }
+  };
 
   return (
     <div className="group relative border border-gray-100 p-4 transition-all hover:border-green-500 hover:shadow-lg bg-white">
@@ -81,9 +94,7 @@ export default function ProductCard({ product }) {
 
         {/* Cart Button */}
         <button
-          onClick={async () => {
-            await addToCart({ productId: product.id, qty: 1 });
-          }}
+          onClick={() => handleAddToCart(product.id)}
           className="rounded-full bg-gray-100 p-3 text-gray-600 group-hover:bg-green-600 group-hover:text-white transition-all cursor-pointer"
           aria-label="add-to-cart"
         >

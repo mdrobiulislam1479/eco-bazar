@@ -5,6 +5,7 @@ import Footer from "@/components/shared/Footer";
 import Newsletter from "@/components/shared/Newsletter";
 import Breadcrumb from "@/components/shared/Breadcrumb";
 import Providers from "@/providers/Providers";
+import { ToastContainer } from "react-toastify";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
           <Newsletter />
           <Footer />
         </body>
+        <ToastContainer />
       </html>
     </Providers>
   );

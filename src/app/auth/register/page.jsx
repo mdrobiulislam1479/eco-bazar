@@ -1,10 +1,11 @@
 import RegisterForm from "@/components/form/RegisterForm";
+import { Suspense } from "react";
 
 const Register = () => {
   return (
-    <div>
+    <Suspense>
       <RegisterForm />
-    </div>
+    </Suspense>
   );
 };
 

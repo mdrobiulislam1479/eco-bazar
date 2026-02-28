@@ -1,10 +1,11 @@
 import LoginForm from "@/components/form/LoginForm";
+import { Suspense } from "react";
 
 const Login = () => {
   return (
-    <div>
+    <Suspense>
       <LoginForm />
-    </div>
+    </Suspense>
   );
 };
 
