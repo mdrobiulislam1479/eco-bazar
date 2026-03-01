@@ -28,8 +28,8 @@ export default function RootLayout({ children }) {
           <section className="flex-1">{children}</section>
           <Newsletter />
           <Footer />
+          <ToastContainer />
         </body>
-        <ToastContainer />
       </html>
     </Providers>
   );

@@ -3,19 +3,22 @@
 import { useState } from "react";
 
 const tags = [
-  "Healthy",
-  "Low fat",
-  "Vegetarian",
-  "Kid foods",
-  "Vitamins",
-  "Bread",
-  "Meat",
-  "Snacks",
-  "Tiffin",
-  "Launch",
-  "Dinner",
-  "Breackfast",
-  "Fruit",
+  "beverages",
+  "cat food",
+  "coffee",
+  "condiments",
+  "cooking essentials",
+  "dairy",
+  "desserts",
+  "dog food",
+  "fruits",
+  "grains",
+  "health supplements",
+  "household essentials",
+  "meat",
+  "pet supplies",
+  "seafood",
+  "vegetables",
 ];
 
 const ratings = [5, 4, 3, 2, 1];
@@ -71,11 +74,12 @@ export default function FilterSidebar({
   selectedRating,
   selectedTags,
   setSelectedRating,
+  setSelectedTags,
 }) {
   const [openSections, setOpenSections] = useState({
     price: true,
     rating: true,
-    tags: true,
+    tags: false,
   });
 
   const toggleSection = (key) =>

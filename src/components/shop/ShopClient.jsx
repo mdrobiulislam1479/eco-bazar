@@ -14,7 +14,7 @@ export default function ShopClient() {
   const [sort, setSort] = useState("priceLow");
   const [priceRange, setPriceRange] = useState([0, 20]);
   const [selectedRating, setSelectedRating] = useState(null);
-  const [selectedTags, setSelectedTags] = useState(["Low fat"]);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const { data, isLoading, isError } = useGetGroceriesQuery({
     limit: 12,
@@ -43,12 +43,20 @@ export default function ShopClient() {
     if (selectedRating)
       arr = arr.filter((p) => (p.rating ?? 0) >= selectedRating);
 
+    // tags filter
+    if (selectedTags.length) {
+      arr = arr.filter((p) => {
+        const ptags = p.tags ?? [];
+        return selectedTags.some((t) => ptags.includes(t));
+      });
+    }
+
     // sort
     if (sort === "priceLow") arr.sort((a, b) => a.price - b.price);
     if (sort === "priceHigh") arr.sort((a, b) => b.price - a.price);
 
     return arr;
-  }, [products, sort, priceRange, selectedRating]);
+  }, [products, sort, priceRange, selectedRating, selectedTags]);
 
   console.log(filteredProducts);
 
@@ -62,9 +70,10 @@ export default function ShopClient() {
         <FilterSidebar
           priceRange={priceRange}
           setPriceRange={setPriceRange}
+          setSelectedRating={setSelectedRating}
           selectedRating={selectedRating}
           selectedTags={selectedTags}
-          setSelectedRating={setSelectedRating}
+          setSelectedTags={setSelectedTags}
         />
       </div>
 
