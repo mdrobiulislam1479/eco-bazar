@@ -1,6 +1,8 @@
 "use client";
 
+import { Check, ChevronDown, SlidersHorizontal, Star } from "lucide-react";
 import { useState } from "react";
+import { IoMdStar } from "react-icons/io";
 
 const tags = [
   "beverages",
@@ -23,26 +25,17 @@ const tags = [
 
 const ratings = [5, 4, 3, 2, 1];
 
-function StarIcon({ filled }) {
-  return (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill={filled ? "#F59E0B" : "none"}
-      stroke={filled ? "#F59E0B" : "#D1D5DB"}
-      strokeWidth="2"
-    >
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-    </svg>
-  );
-}
-
 function RatingStars({ rating }) {
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((i) => (
-        <StarIcon key={i} filled={i <= rating} />
+        <IoMdStar
+          key={i}
+          size={16}
+          className={
+            i <= rating ? "text-orange-400 fill-orange-400" : "text-gray-300"
+          }
+        />
       ))}
     </div>
   );
@@ -55,15 +48,11 @@ function SectionHeader({ title, open, toggle }) {
       className="flex w-full items-center justify-between py-1 text-left"
     >
       <span className="text-[15px] font-semibold text-gray-800">{title}</span>
-      <svg
-        className={`h-4 w-4 text-gray-500 transition-transform duration-200 ${open ? "" : "rotate-180"}`}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2.5}
-      >
-        <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-      </svg>
+
+      <ChevronDown
+        size={16}
+        className={`text-gray-500 transition-transform duration-200 ${open ? "" : "rotate-180"}`}
+      />
     </button>
   );
 }
@@ -98,22 +87,9 @@ export default function FilterSidebar({
     <div className="min-h-screen flex items-start justify-center">
       <div className="w-64 rounded-2xl bg-white shadow-sm p-5 space-y-5">
         {/* Filter Button */}
-        <button className="flex items-center gap-2 rounded-full bg-green-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md hover:bg-green-600 active:scale-95 transition-all">
+        <button className="flex items-center gap-2 rounded-full bg-green-500 px-5 py-2.5 text-sm font-semibold text-white shadow-md">
           <span>Filter</span>
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="10" cy="10" r="3" />
-            <line x1="21" y1="21" x2="15" y2="15" />
-            <line x1="5" y1="5" x2="3" y2="3" />
-          </svg>
+          <SlidersHorizontal size={20} />
         </button>
 
         <hr className="border-gray-100" />
@@ -203,23 +179,7 @@ export default function FilterSidebar({
                           : "border-gray-300 bg-white group-hover:border-green-400"
                       }`}
                     >
-                      {checked && (
-                        <svg
-                          width="10"
-                          height="10"
-                          viewBox="0 0 12 12"
-                          fill="white"
-                        >
-                          <path
-                            d="M2 6l3 3 5-5"
-                            stroke="white"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            fill="none"
-                          />
-                        </svg>
-                      )}
+                      {checked && <Check size={10} className="text-white" />}
                     </div>
                     <RatingStars rating={r} />
                     <span className="text-sm text-gray-600">
