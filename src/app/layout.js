@@ -14,7 +14,11 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "Eco Bazar — Organic Grocery & Lifestyle Shop",
+  title: {
+    default: "Eco Bazar",
+    template: "%s | Eco Bazar",
+  },
+
   description:
     "Shop organic groceries, eco‑friendly products, and sustainable lifestyle items at Eco Bazar. Free shipping on orders over $50.",
   keywords: [

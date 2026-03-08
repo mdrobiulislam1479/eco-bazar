@@ -1,6 +1,10 @@
 import Button from "@/components/ui/buttons/Button";
 import Image from "next/image";
 
+export const metadata = {
+  title: "Not Found",
+};
+
 const NotFound = () => {
   return (
     <div className="p-20 mx-auto flex flex-col w-full items-center gap-5">

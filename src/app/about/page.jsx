@@ -3,6 +3,10 @@ import TeamSection from "@/components/about/TeamSection";
 import TrustedOrganicFeatures from "@/components/about/TrustedOrganicFeatures";
 import TrustedOrganicTop from "@/components/about/TrustedOrganicTop";
 
+export const metadata = {
+  title: "About Us",
+};
+
 const About = () => {
   return (
     <div>

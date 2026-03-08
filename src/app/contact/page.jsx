@@ -2,6 +2,10 @@ import Container from "@/components/ui/Container";
 import Map from "@/components/ui/Map";
 import { MapPin, Mail, Phone } from "lucide-react";
 
+export const metadata = {
+  title: "Contact Us",
+};
+
 export default function ContactSection() {
   return (
     <section>

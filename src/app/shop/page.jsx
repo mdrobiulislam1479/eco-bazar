@@ -1,7 +1,7 @@
 import ShopClient from "@/components/shop/ShopClient";
 
 export const metadata = {
-  title: "Shop Organic Groceries | Eco Bazar",
+  title: "Shop Organic Groceries",
   description:
     "Explore Eco Bazar's shop for fresh organic groceries, eco-friendly products, and sustainable lifestyle essentials.",
 
@@ -17,7 +17,7 @@ export const metadata = {
   },
 
   openGraph: {
-    title: "Shop Organic Groceries | Eco Bazar",
+    title: "Shop Organic Groceries",
     description:
       "Browse organic groceries and eco-friendly products at Eco Bazar.",
     url: "https://eco-bazar-one.vercel.app/shop",
