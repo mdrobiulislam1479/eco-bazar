@@ -8,6 +8,15 @@ import PopularProducts from "@/components/home/PopularProducts";
 import SummerSaleBanner from "@/components/home/SummerSaleBanner";
 import Testimonials from "@/components/shared/Testimonials";
 
+export const metadata = {
+  title: "Eco Bazar | Home",
+  description:
+    "Discover the latest deals, featured products, and sustainable living tips at Eco Bazar. Shop now and make your lifestyle greener!",
+  alternates: {
+    canonical: "https://eco-bazar-one.vercel.app",
+  },
+};
+
 const Home = () => {
   return (
     <div>
