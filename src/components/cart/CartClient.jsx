@@ -9,6 +9,7 @@ import Image from "next/image";
 import Container from "../ui/Container";
 import Link from "next/link";
 import { useGetAllGroceriesQuery } from "@/redux/api/productsApi";
+import CartSkeleton from "../skeleton/CartSkeleton";
 
 export default function CartClient() {
   const { data: cartData, isLoading: cartLoading, refetch } = useGetCartQuery();
@@ -17,8 +18,7 @@ export default function CartClient() {
   const [updateQty] = useUpdateQtyMutation();
   const [removeItem] = useRemoveCartItemMutation();
 
-  if (cartLoading || productLoading)
-    return <p className="py-10 text-center">Loading...</p>;
+  if (cartLoading || productLoading) return <CartSkeleton />;
 
   const items = cartData?.cart?.items || [];
   console.log(cartData);
