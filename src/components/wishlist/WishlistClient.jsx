@@ -8,6 +8,7 @@ import Image from "next/image";
 import Container from "../ui/Container";
 import { useAddToCartMutation } from "@/redux/api/cartApi";
 import { useGetAllGroceriesQuery } from "@/redux/api/productsApi";
+import WishlistSkeleton from "../skeleton/WishlistSkeleton";
 
 export default function WishlistClient() {
   const {
@@ -20,8 +21,7 @@ export default function WishlistClient() {
   const [remove] = useRemoveWishlistMutation();
   const [addToCart] = useAddToCartMutation();
 
-  if (wishLoading || productLoading)
-    return <p className="py-10 text-center">Loading...</p>;
+  if (wishLoading || productLoading) return <WishlistSkeleton />;
 
   const wishItems = wishData?.items || [];
   const products = groceryData?.products || [];
